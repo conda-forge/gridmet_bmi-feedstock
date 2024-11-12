@@ -1,5 +1,6 @@
 {% set name = "gridmet_bmi" %}
 {% set version = "0.2.1" %}
+{% set python_min = python_min|default("3.10") %}
 
 package:
   name: {{ name|lower }}
@@ -18,10 +19,10 @@ build:
 
 requirements:
   host:
-    - python >=3.6
+    - python {{ python_min }}.*
     - pip
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - bmipy
     - click
     - numpy
@@ -31,6 +32,8 @@ requirements:
     - xarray
 
 test:
+  requires:
+    - python ={{ python_min }}
   imports:
     - gridmet_bmi
   commands:
