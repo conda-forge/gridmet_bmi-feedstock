@@ -14,8 +14,6 @@ build:
   noarch: python
   number: 0
   script: "{{ PYTHON }} -m pip install . -vv"
-  entry_points:
-    - gridmet_bmi=gridmet_bmi.cli:main
 
 requirements:
   host:
@@ -35,10 +33,13 @@ requirements:
 test:
   requires:
     - python ={{ python_min }}
+    - bmi-tester
   imports:
     - gridmet_bmi
+  source_files:
+    - examples
   commands:
-    - gridmet_bmi --help
+    - bmi-test gridmet_bmi.bmi_gridmet:BmiGridmet --config-file=${PWD}/examples/gridmet_bmi.yaml --root-dir=examples -vvv
 
 about:
   home: https://github.com/nhm-usgs/{{ name }}
